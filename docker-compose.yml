@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3'
 
 services:
   app:
@@ -8,9 +8,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     ports:
-      - 888:8080
-    networks:
-      - net
+      - 8888:8080
     deploy:
       resources:
         limits:
@@ -27,8 +25,6 @@ services:
     image: couchdb:2.3.0
     volumes:
       - db-data:/opt/couchdb/data
-    networks:
-      - net
     deploy:
       resources:
         limits:
@@ -44,8 +40,6 @@ services:
       - DOCKER_API_VERSION=1.35
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - net
     deploy:
       mode: global
       labels:
@@ -57,11 +51,6 @@ services:
         reservations:
           cpus: '0.05'
           memory: 32M
-
-networks:
-  net:
-    driver: overlay
-    attachable: true
 
 volumes:
   db-data:
